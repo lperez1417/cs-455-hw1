@@ -30,10 +30,7 @@ public class Hw_1
 
       // Your code goes here.
       // Create a framebuffer. Fill it with the checkerboard pattern.
-      Color red = new Color(192,56,14);
-      Color brown = new Color(255,189,96);
-      FrameBuffer checker1 = new FrameBuffer(100,100,red);
-      FrameBuffer checker2 = new FrameBuffer(100,100,brown);
+  
       // Create a viewport to hold the given PPM file. Put the PPM file in the viewport.
       
       // Create another viewport and fill it with a flipped copy of the PPM file.
