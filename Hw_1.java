@@ -49,7 +49,7 @@ public class Hw_1
         alternate = !alternate;
       }
       // Create a viewport to hold the given PPM file. Put the PPM file in the viewport.
-      
+      square = frame.new Viewport(75, 125, "RebelTrooper.ppm");
       // Create another viewport and fill it with a flipped copy of the PPM file.
       
       // Create another viewport and fill it with the striped pattern.
