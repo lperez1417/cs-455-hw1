@@ -16,7 +16,7 @@ public class Hw_1
    public static void main(String[] args)
    {
       // Check for a file name on the command line.
-      if ( 0 == args.length )
+     /* if ( 0 == args.length )
       {
          System.err.println("Usage: java Hw_1 <PPM-file-name>");
          System.exit(-1);
@@ -30,10 +30,24 @@ public class Hw_1
 
       // Your code goes here.
       // Create a framebuffer. Fill it with the checkerboard pattern.
-      Color red = new Color(192,56,14);
-      Color brown = new Color(255,189,96);
-      FrameBuffer checker1 = new FrameBuffer(100,100,red);
-      FrameBuffer checker2 = new FrameBuffer(100,100,brown);
+      FrameBuffer frame = new FrameBuffer(1000,600);
+      Color checker1 = new Color(255,189,96);
+      Color checker2 = new Color(192,56,14);
+      boolean alternate = true;
+      FrameBuffer.Viewport square = frame.new Viewport();
+      for (int i = 0; i < 1000; i += 100)
+      {
+        for (int j = 0; j < 600; j += 100)
+        {
+          square = frame.new Viewport(i, j, 100, 100);
+          if (alternate == true)
+            square.clearVP(checker1);
+          else
+            square.clearVP(checker2);
+          alternate = !alternate;
+        }
+        alternate = !alternate;
+      }
       // Create a viewport to hold the given PPM file. Put the PPM file in the viewport.
       
       // Create another viewport and fill it with a flipped copy of the PPM file.
@@ -51,7 +65,7 @@ public class Hw_1
       // Copy the selected region's viewport into this last viewport.
       
 
-      FrameBuffer fb = null;
+      FrameBuffer fb = frame;
 
 
       /******************************************/
