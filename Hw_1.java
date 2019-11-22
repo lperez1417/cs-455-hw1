@@ -64,6 +64,19 @@ public class Hw_1
       }
       square = frame.new Viewport(75 + ppmW, 125, flip);
       // Create another viewport and fill it with the striped pattern.
+      int stripesW = 300;
+      int stripesH = 120;
+      Color[] colors = new Color[3];
+      colors[0] = new Color(240, 95, 116);//pink
+      colors[1] = new Color(152, 203, 74);//green
+      colors[2] = new Color(84, 129, 230);//blue
+      int inc = 0;
+      FrameBuffer stripes = new FrameBuffer(stripesW, stripesH);
+      for (int i = 0; i < stripesW; ++i)
+      {
+        for (int j = 0; j < stripesH; ++j )
+        {
+          
       
       // Create another viewport that covers the selected region of the framebuffer.
       
