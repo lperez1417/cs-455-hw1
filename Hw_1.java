@@ -51,7 +51,16 @@ public class Hw_1
       // Create a viewport to hold the given PPM file. Put the PPM file in the viewport.
       square = frame.new Viewport(75, 125, "RebelTrooper.ppm");
       // Create another viewport and fill it with a flipped copy of the PPM file.
-      
+      FrameBuffer flip = new FrameBuffer("RebelTrooper.ppm");
+      for (int i = 0; i < 256; i++)
+      {
+        for (int j = 0; j < 256; j++)
+        {
+          flip.setPixelFB(j, i, flip.getPixelFB(256 - 1 - j,i));
+        }
+      }
+        
+      square = frame.new Viewport(331, 125, flip);
       // Create another viewport and fill it with the striped pattern.
       
       // Create another viewport that covers the selected region of the framebuffer.
