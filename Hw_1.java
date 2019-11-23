@@ -48,35 +48,42 @@ public class Hw_1
         }
         alternate = !alternate;
       }
+      
       // Create a viewport to hold the given PPM file. Put the PPM file in the viewport.
       square = frame.new Viewport(75, 125, "RebelTrooper.ppm");
+      
       // Create another viewport and fill it with a flipped copy of the PPM file.
-      FrameBuffer flip = new FrameBuffer("RebelTrooper.ppm");
-      FrameBuffer.Viewport vpFlip = flip.new Viewport(0, 0, flip);
-      int ppmH =  vpFlip.getHeight();
-      int ppmW = vpFlip.getWidth();
-      for (int i = 0; i < ppmH ; ++i)
-      {
-        for (int j = 0; j < ppmW ; ++j)
-        {
-          flip.setPixelFB(j, i, flip.getPixelFB(ppmW - 1 - j,i));
-        }
-      }
-      square = frame.new Viewport(75 + ppmW, 125, flip);
-      // Create another viewport and fill it with the striped pattern.
       int stripesW = 300;
       int stripesH = 120;
+      Color white = new Color(255, 255, 255);
       Color[] colors = new Color[3];
-      colors[0] = new Color(240, 95, 116);//pink
-      colors[1] = new Color(152, 203, 74);//green
-      colors[2] = new Color(84, 129, 230);//blue
+      colors[0] = new Color(152, 203, 74);//green
+      colors[1] = new Color(84, 129, 230);//blue
+      colors[2] = new Color(241, 95, 116);//pink
       int inc = 0;
+      int q,r;
       FrameBuffer stripes = new FrameBuffer(stripesW, stripesH);
-      for (int i = 0; i < stripesW; ++i)
+      for (int k = 0; k <= 9; ++k)
       {
-        for (int j = 0; j < stripesH; ++j )
+        if (inc == colors.length)
+          inc = 0;
+        for (int i = 0; i <= 30; ++i)
         {
-          
+          q = 0;
+          for (int j = 119; j >= 0; --j)
+          {
+            r = q + i + (30*k);
+            if (r == 300)
+              break;
+            stripes.setPixelFB(r, j, colors[inc]);
+            q++;
+          }
+        }
+        inc++;
+      }
+      FrameBuffer.Viewport copy = stripes.new Viewport(180, 0, 120, 120);
+      FrameBuffer.Viewport stripesFull = stripes.new Viewport(0, 0, copy);
+      square = frame.new Viewport(610, 420, stripes);
       
       // Create another viewport that covers the selected region of the framebuffer.
       
