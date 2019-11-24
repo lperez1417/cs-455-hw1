@@ -48,6 +48,7 @@ public class Hw_1
         }
         alternate = !alternate;
       }
+  
       // Create a viewport to hold the given PPM file. Put the PPM file in the viewport.
       FrameBuffer trooper = new FrameBuffer("RebelTrooper.ppm");
       vp = frame.new Viewport(75, 125, trooper);
