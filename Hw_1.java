@@ -16,7 +16,7 @@ public class Hw_1
    public static void main(String[] args)
    {
       // Check for a file name on the command line.
-     /* if ( 0 == args.length )
+     /*if ( 0 == args.length )
       {
          System.err.println("Usage: java Hw_1 <PPM-file-name>");
          System.exit(-1);
@@ -24,7 +24,7 @@ public class Hw_1
 
       // This framebuffer holds the image that will be embedded
       // within a viewport of our larger framebuffer.
-      FrameBuffer fbEmbedded = new FrameBuffer( args[0] );
+      //FrameBuffer fbEmbedded = new FrameBuffer( args[0] );
 
       /******************************************/
 
@@ -34,36 +34,37 @@ public class Hw_1
       Color checker1 = new Color(255,189,96);
       Color checker2 = new Color(192,56,14);
       boolean alternate = true;
-      FrameBuffer.Viewport square = frame.new Viewport();
+      FrameBuffer.Viewport vp = frame.new Viewport();
       for (int i = 0; i < 1000; i += 100)
       {
         for (int j = 0; j < 600; j += 100)
         {
-          square = frame.new Viewport(i, j, 100, 100);
+          vp = frame.new Viewport(i, j, 100, 100);
           if (alternate == true)
-            square.clearVP(checker1);
+            vp.clearVP(checker1);
           else
-            square.clearVP(checker2);
+            vp.clearVP(checker2);
           alternate = !alternate;
         }
         alternate = !alternate;
       }
       // Create a viewport to hold the given PPM file. Put the PPM file in the viewport.
-      square = frame.new Viewport(75, 125, "RebelTrooper.ppm");
+      FrameBuffer trooper = new FrameBuffer("RebelTrooper.ppm");
+      vp = frame.new Viewport(75, 125, trooper);
       
       // Create another viewport and fill it with a flipped copy of the PPM file.
-      FrameBuffer flip = new FrameBuffer("RebelTrooper.ppm");
-      FrameBuffer.Viewport vpFlip = flip.new Viewport(0, 0, flip);
-      int ppmH =  vpFlip.getHeight();
-      int ppmW = vpFlip.getWidth();
+      FrameBuffer.Viewport vpTrooper = trooper.new Viewport(0, 0, trooper);
+      int ppmH =  vpTrooper.getHeight();
+      int ppmW = vpTrooper.getWidth();
+      FrameBuffer flipped = new FrameBuffer(ppmW, ppmH);
       for (int i = 0; i < ppmH ; ++i)
       {
         for (int j = 0; j < ppmW ; ++j)
         {
-          flip.setPixelFB(j, i, flip.getPixelFB(ppmW - 1 - j,i));
+          flipped.setPixelFB(j, i, trooper.getPixelFB(ppmW - 1 - j,i));
         }
       }
-      square = frame.new Viewport(75 + ppmW, 125, flip);
+      vp = frame.new Viewport(75 + ppmW, 125, flipped);
       
       // Create another viewport and fill it with the striped pattern.
       int stripesW = 300;
@@ -96,15 +97,21 @@ public class Hw_1
       }
       FrameBuffer.Viewport copy = stripes.new Viewport(180, 0, 120, 120);
       FrameBuffer.Viewport stripesFull = stripes.new Viewport(0, 0, copy);
-      square = frame.new Viewport(610, 420, stripes);
+      vp = frame.new Viewport(610, 420, stripes);
       
       // Create another viewport that covers the selected region of the framebuffer.
+      vp = frame.new Viewport(500, 200, 200, 300);
+      FrameBuffer fbCopy = vp.convertVP2FB();
       
       // Create another viewport to hold a copy of the selected region.
+      vp = frame.new Viewport(725, 25, 250, 350);
       
       // Give this viewport a grayish background color.
+      Color gray = new Color(192, 192, 192);
+      vp.clearVP(gray);
       
       // Create another viewport inside the last one.
+      vp = frame.new Viewport(750, 50, fbCopy);
       
       // Copy the selected region's viewport into this last viewport.
       
